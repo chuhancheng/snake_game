@@ -3,6 +3,8 @@ import { IPosition, IRect } from "../interface";
 import { DrawableElement } from "./DrawableElement";
 
 export class Snake extends DrawableElement {
+    private movable: boolean = true;
+    private speed: number = 5;
     public size: number;
     public tail: IPosition[];
     public direction: IPosition = {x: 0, y: 1};
@@ -15,6 +17,9 @@ export class Snake extends DrawableElement {
     }
 
     public Move(): void {
+        if (!this.movable) {
+            return;
+        }
         let nextPosition;
         if (this.direction.x === 1) {
             nextPosition = {
@@ -40,6 +45,14 @@ export class Snake extends DrawableElement {
 
         this.tail.shift();
         this.tail.push(nextPosition);
+        this.frozenMovement();
+    }
+
+    private frozenMovement(): void {
+        this.movable = false;
+        setTimeout(() => {
+            this.movable = true;
+        }, 1000 / (this.speed + 0.5 * this.tail.length));
     }
 
     public get Head(): IPosition {

@@ -7,14 +7,14 @@ const snake = new Snake(0, 0, 20);
 
 let apple = new Apple(canvas, snake);
 
-let canvasContext: CanvasRenderingContext2D = canvas.getContext('2d');
+const canvasContext: CanvasRenderingContext2D = canvas.getContext('2d');
 
 window.onload = () => {
     gameLoop();
 }
 
 function gameLoop(): void {
-    setInterval(show, 1000 / 5) //here 15 is our fps value
+    setInterval(show, 1000 / 60) //here is our fps value
 }
 
 function show(): void{
@@ -23,13 +23,14 @@ function show(): void{
 }
 
 function update(): void {
-    canvasContext.clearRect(0,0,canvas.width,canvas.height);
     snake.Move();
     eatApple();
     checkWallHit();
 }
 
 function draw(ctx: CanvasRenderingContext2D): void {
+    // clearRect() 方法清空给定矩形内的指定像素。
+    ctx.clearRect(0,0,canvas.width,canvas.height);
     drawBackGround(ctx);
     snake.Draw(ctx);
     apple.Draw(ctx);
@@ -40,7 +41,7 @@ function draw(ctx: CanvasRenderingContext2D): void {
 
 function checkWallHit(): void {
     if (snake.Head.x === - snake.size) {
-        snake.Head = {...snake.Head, x: canvas.width};
+        snake.Head = {...snake.Head, x: canvas.width - snake.size};
     } else if (snake.Head.x === canvas.width) {
         snake.Head = {...snake.Head, x: 0};
     } else if (snake.Head.y === - snake.size) {
