@@ -16,7 +16,11 @@ export class Snake extends DrawableElement {
         this.direction = {x: 0, y: 1};
     }
 
-    public Move(): void {
+    public Update(): void {
+        this.Move();
+    }
+
+    private Move(): void {
         if (!this.movable) {
             return;
         }
@@ -45,10 +49,10 @@ export class Snake extends DrawableElement {
 
         this.tail.shift();
         this.tail.push(nextPosition);
-        this.frozenMovement();
+        this.FrozenMovement();
     }
 
-    private frozenMovement(): void {
+    private FrozenMovement(): void {
         this.movable = false;
         setTimeout(() => {
             this.movable = true;
@@ -64,13 +68,29 @@ export class Snake extends DrawableElement {
 
     public Draw(canvasContext: CanvasRenderingContext2D): void {
         for(let i=0;i<this.tail.length;i++) {
-            let rect: IRect = {
+            const rect: IRect = {
                 x: this.tail[i].x + 2.5,
                 y: this.tail[i].y + 2.5,
                 width: this.size - 5,
                 height: this.size - 5
             }
             this.CreateRect(canvasContext, rect, 'white');
+        }
+    }
+
+    public EventHandler(event: KeyboardEvent): void {
+        if (event.key == "ArrowLeft" && this.direction.x != 1) {
+            this.direction.x = -1;
+            this.direction.y = 0;
+        } else if (event.key == "ArrowUp" && this.direction.y != 1) {
+            this.direction.x = 0;
+            this.direction.y = -1;
+        } else if (event.key == "ArrowRight" && this.direction.x != 1) {
+            this.direction.x = 1;
+            this.direction.y = 0;
+        } else if (event.key == "ArrowDown" && this.direction.y != 1) {
+            this.direction.x = 0;
+            this.direction.y = 1;
         }
     }
 }

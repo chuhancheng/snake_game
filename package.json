@@ -4,7 +4,7 @@
   "description": "",
   "private": true,
   "scripts": {
-    "dev": "webpack --watch --progress",
+    "dev": "webpack --mode=development --watch --progress",
     "build": "webpack --mode=development",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
