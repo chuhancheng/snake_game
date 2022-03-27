@@ -1,15 +1,14 @@
-import { IPosition, IRect } from "../interface";
+import { IPosition, IRect, ISprite } from "../interface";
 
-import { DrawableElement } from "./DrawableElement";
+import { CreateRect } from "../lib/util";
 
-export class Snake extends DrawableElement {
+export class Snake implements ISprite {
     private movable: boolean = true;
     private speed: number = 5;
     public size: number;
     public tail: IPosition[];
     public direction: IPosition = {x: 0, y: 1};
     constructor(x: number, y: number, size: number){
-        super();
         this.size = size;
         // The tail in first，the head in last。
         this.tail = [{x, y}];
@@ -74,21 +73,21 @@ export class Snake extends DrawableElement {
                 width: this.size - 5,
                 height: this.size - 5
             }
-            this.CreateRect(canvasContext, rect, 'white');
+            CreateRect(canvasContext, rect, 'white');
         }
     }
 
     public EventHandler(event: KeyboardEvent): void {
-        if (event.key == "ArrowLeft" && this.direction.x != 1) {
+        if (event.key == "ArrowLeft" && this.direction.y != 0) {
             this.direction.x = -1;
             this.direction.y = 0;
-        } else if (event.key == "ArrowUp" && this.direction.y != 1) {
+        } else if (event.key == "ArrowUp" && this.direction.x != 0) {
             this.direction.x = 0;
             this.direction.y = -1;
-        } else if (event.key == "ArrowRight" && this.direction.x != 1) {
+        } else if (event.key == "ArrowRight" && this.direction.y != 0) {
             this.direction.x = 1;
             this.direction.y = 0;
-        } else if (event.key == "ArrowDown" && this.direction.y != 1) {
+        } else if (event.key == "ArrowDown" && this.direction.x != 0) {
             this.direction.x = 0;
             this.direction.y = 1;
         }

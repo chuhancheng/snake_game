@@ -1,3 +1,3 @@
-import {IPosition, IRect} from "./util";
+import {IPosition, IRect, ISprite} from "./util";
 
-export {IPosition, IRect};
+export {IPosition, IRect, ISprite};

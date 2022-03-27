@@ -1,14 +1,13 @@
-import { IPosition, IRect } from "../interface";
+import { IPosition, IRect, ISprite } from "../interface";
 
-import { DrawableElement } from "./DrawableElement";
+import { CreateRect } from "../lib/util";
 import { Snake } from './snake';
 
-export class Apple extends DrawableElement {
+export class Apple implements ISprite {
     public position: IPosition;
     public color: string = "red";
     public size: number;
     constructor(canvas: HTMLCanvasElement, snake: Snake){
-        super();
         console.log("Generate Apple");
         while(true) {
             let position: IPosition = this.GeneratePosition(canvas, snake.size);
@@ -42,6 +41,8 @@ export class Apple extends DrawableElement {
         return isTouching;
     }
 
+    public Update(): void {}
+
     public Draw(canvasContext: CanvasRenderingContext2D): void {
         let rect: IRect = {
             x: this.position.x + 2.5,
@@ -49,6 +50,6 @@ export class Apple extends DrawableElement {
             width: this.size - 5,
             height: this.size - 5
         }
-        this.CreateRect(canvasContext, rect, this.color);
+        CreateRect(canvasContext, rect, this.color);
     }
 }

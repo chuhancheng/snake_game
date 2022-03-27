@@ -10,7 +10,13 @@ interface IRect {
     height: number;
 }
 
+interface ISprite {
+    Update: () => void;
+    Draw: (ctx: CanvasRenderingContext2D) => void;
+}
+
 export {
     IPosition,
-    IRect
+    IRect,
+    ISprite
 }

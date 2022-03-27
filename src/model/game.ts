@@ -1,45 +1,56 @@
 import { Apple } from "./apple";
-import { DrawableElement } from "./DrawableElement";
+import { CreateRect } from "../lib/util";
 import { IRect } from "../interface";
 import { Snake } from "./snake";
+import { UIText } from "./UI/text";
 
-export class Game extends DrawableElement {
+export class Game {
     private snake: Snake;
     private apple: Apple;
     private canvas: HTMLCanvasElement;
     private canvasContext: CanvasRenderingContext2D;
+    private score: UIText;
     constructor(canvas: HTMLCanvasElement){
-        super();
         this.canvas = canvas;
         this.canvasContext = this.canvas.getContext('2d');
         this.snake = new Snake(0, 0, 20);
         this.apple = new Apple(canvas, this.snake);
+        this.score = new UIText(canvas, "Score: 0", "20px Arial", "#00FF42", {x: 10, y: 30});
     }
 
     public gameLoop(): void {
-        setInterval(this.show.bind(this), 1000 / 60) //here is our fps value
+        setInterval(this.show.bind(this), 1000 / 60);
     }
 
     private show(): void{
         this.Update();
+        // clearRect() 方法清空给定矩形内的指定像素。
+        this.canvasContext.clearRect(0,0,this.canvas.width,this.canvas.height);
         this.Draw(this.canvasContext);
+        this.DrawElement(this.canvasContext);
     }
 
     private Update(): void {
         this.snake.Update();
+        this.score.SetText(`Score:  ${this.snake.tail.length+1}`);
         this.eatApple();
         this.checkWallHit();
     }
 
     private Draw(ctx: CanvasRenderingContext2D): void {
-        // clearRect() 方法清空给定矩形内的指定像素。
-        ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
-        this.DrawBackGround(ctx);
+        let rect1: IRect = {
+            x: 0,
+            y: 0,
+            width: this.canvas.width,
+            height: this.canvas.height
+        }
+        CreateRect(ctx, rect1, "black");
+    }
+
+    private DrawElement(ctx: CanvasRenderingContext2D): void {
         this.snake.Draw(ctx);
         this.apple.Draw(ctx);
-        ctx.font = "20px Arial";
-        ctx.fillStyle = "#00FF42";
-        ctx.fillText(`Score:  ${this.snake.tail.length+1}`, 10, 30, this.canvas.width - 120);
+        this.score.Draw(ctx);
     }
 
     private checkWallHit(): void {
@@ -59,16 +70,6 @@ export class Game extends DrawableElement {
             this.snake.tail[this.snake.tail.length] = {...this.apple.position};
             this.apple = new Apple(this.canvas, this.snake);
         }
-    }
-    
-    private DrawBackGround(ctx: CanvasRenderingContext2D): void {
-        let rect1: IRect = {
-            x: 0,
-            y: 0,
-            width: this.canvas.width,
-            height: this.canvas.height
-        }
-        this.CreateRect(ctx, rect1, "black");
     }
 
     public EventHandler(event: KeyboardEvent): void {
