@@ -1,13 +1,13 @@
-import { Game } from "./model/game";
+import {Game} from './model/game';
 
 const canvas = <HTMLCanvasElement>document.getElementById('canvas');
 
 const game = new Game(canvas);
 
 window.onload = () => {
-    game.gameLoop();
-}
+  game.gameLoop();
+};
 
-window.addEventListener("keydown", (event) => {
-    game.EventHandler(event);
+window.addEventListener('keydown', event => {
+  game.EventHandler(event);
 });
