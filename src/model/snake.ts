@@ -7,12 +7,12 @@ export class Snake implements ISprite {
     private speed: number = 5;
     public size: number;
     public tail: IPosition[];
-    public direction: IPosition = {x: 0, y: 1};
-    constructor(x: number, y: number, size: number){
+    public direction: IPosition = { x: 0, y: 1 };
+    constructor(x: number, y: number, size: number) {
         this.size = size;
         // The tail in first，the head in last。
-        this.tail = [{x, y}];
-        this.direction = {x: 0, y: 1};
+        this.tail = [{ x, y }];
+        this.direction = { x: 0, y: 1 };
     }
 
     public Update(): void {
@@ -26,25 +26,25 @@ export class Snake implements ISprite {
         let nextPosition;
         if (this.direction.x === 1) {
             nextPosition = {
-                x: this.tail[this.tail.length-1].x + this.size,
-                y: this.tail[this.tail.length-1].y
+                x: this.tail[this.tail.length - 1].x + this.size,
+                y: this.tail[this.tail.length - 1].y
             }
         } else if (this.direction.x === -1) {
             nextPosition = {
-                x: this.tail[this.tail.length-1].x - this.size,
-                y: this.tail[this.tail.length-1].y
+                x: this.tail[this.tail.length - 1].x - this.size,
+                y: this.tail[this.tail.length - 1].y
             }
         } else if (this.direction.y === 1) {
             nextPosition = {
-                x: this.tail[this.tail.length-1].x,
-                y: this.tail[this.tail.length-1].y + this.size
+                x: this.tail[this.tail.length - 1].x,
+                y: this.tail[this.tail.length - 1].y + this.size
             }
         } else if (this.direction.y === -1) {
             nextPosition = {
-                x: this.tail[this.tail.length-1].x,
-                y: this.tail[this.tail.length-1].y - this.size
+                x: this.tail[this.tail.length - 1].x,
+                y: this.tail[this.tail.length - 1].y - this.size
             }
-        } 
+        }
 
         this.tail.shift();
         this.tail.push(nextPosition);
@@ -66,7 +66,7 @@ export class Snake implements ISprite {
     }
 
     public Draw(canvasContext: CanvasRenderingContext2D): void {
-        for(let i=0;i<this.tail.length;i++) {
+        for (let i = 0; i < this.tail.length; i++) {
             const rect: IRect = {
                 x: this.tail[i].x + 2.5,
                 y: this.tail[i].y + 2.5,
