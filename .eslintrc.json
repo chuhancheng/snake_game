@@ -3,5 +3,12 @@
   "ignorePatterns": ["dist/*.js", "webpack.config.js"],
   "parserOptions": {
     "sourceType": "module"
+  },
+  "rules": {
+    "prettier/prettier": [
+      "warn",
+      { "tabWidth": 4 }
+    ],
+    "indent": ["error", 4]
   }
 }

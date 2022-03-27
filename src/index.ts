@@ -5,9 +5,9 @@ const canvas = <HTMLCanvasElement>document.getElementById('canvas');
 const game = new Game(canvas);
 
 window.onload = () => {
-  game.gameLoop();
+    game.gameLoop();
 };
 
 window.addEventListener('keydown', event => {
-  game.EventHandler(event);
+    game.EventHandler(event);
 });
