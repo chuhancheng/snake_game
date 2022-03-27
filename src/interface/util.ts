@@ -10,9 +10,15 @@ interface IRect {
     height: number;
 }
 
+interface ICircle {
+    x: number;
+    y: number;
+    radius: number;
+}
+
 interface ISprite {
     Update: () => void;
     Draw: (ctx: CanvasRenderingContext2D) => void;
 }
 
-export {IPosition, IRect, ISprite};
+export {IPosition, IRect, ICircle, ISprite};

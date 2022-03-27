@@ -1,3 +1,3 @@
-import {IPosition, IRect, ISprite} from './util';
+import {ICircle, IPosition, IRect, ISprite} from './util';
 
-export {IPosition, IRect, ISprite};
+export {IPosition, IRect, ISprite, ICircle};

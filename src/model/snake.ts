@@ -1,6 +1,6 @@
-import {IPosition, IRect, ISprite} from '../interface';
+import {ICircle, IPosition, IRect, ISprite} from '../interface';
 
-import {CreateRect} from '../lib/util';
+import {CreateCircle} from '../lib/util';
 
 export class Snake implements ISprite {
     private movable = true;
@@ -74,13 +74,12 @@ export class Snake implements ISprite {
 
     public Draw(canvasContext: CanvasRenderingContext2D): void {
         for (let i = 0; i < this.tail.length; i++) {
-            const rect: IRect = {
-                x: this.tail[i].x + 2.5,
-                y: this.tail[i].y + 2.5,
-                width: this.size - 5,
-                height: this.size - 5,
+            const circle: ICircle = {
+                x: this.tail[i].x,
+                y: this.tail[i].y,
+                radius: this.size / 2,
             };
-            CreateRect(canvasContext, rect, 'white');
+            CreateCircle(canvasContext, circle, 'white');
         }
     }
 
